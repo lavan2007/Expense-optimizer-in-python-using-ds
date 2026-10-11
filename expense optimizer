@@ -1,0 +1,60 @@
+# Expense Optimizer using Data Structures
+
+expenses = {}
+budget = {
+    "Food": 1000,
+    "Transport": 1000,
+    "Entertainment": 1000
+}
+
+print("----- Expense Entry -----")
+
+while True:
+    amount = float(input("Enter amount: "))
+
+    category = input(
+        "Enter category (Food/Transport/Entertainment): "
+    ).strip().title()
+
+    if category not in budget:
+        print("Invalid category! Try again.")
+        continue
+
+    # Dictionary stores category-wise expenses
+    expenses[category] = expenses.get(category, 0) + amount
+
+    another = input("Add another? (y/n): ").lower()
+
+    if another != 'y':
+        break
+
+# Display expense summary
+print("\nExpense Summary:")
+
+for category, amount in expenses.items():
+    print(f"{category} | ₹{amount:.2f}")
+
+# Find top spending category
+if expenses:
+    top_category = max(expenses, key=expenses.get)
+
+    print("\nTop Spending Category:")
+    print(f"{top_category}: ₹{expenses[top_category]:.2f}")
+
+# Check budget exceeded
+print("\nCategories Over Budget:")
+
+found = False
+
+for category, amount in expenses.items():
+    if amount > budget[category]:
+        print(
+            f"{category} exceeded budget "
+            f"(₹{budget[category]}) - Spent: ₹{amount:.2f}"
+        )
+        found = True
+
+if not found:
+    print("No category exceeded the budget.")
+
+print("\n--- Code Execution Successful ---")
